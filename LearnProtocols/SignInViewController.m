@@ -34,6 +34,22 @@
 }
 */
 
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    
+    if ([segue.destinationViewController isKindOfClass:[CreateAccountViewController class]] )
+    {
+        CreateAccountViewController *createAccountVC = segue.destinationViewController;
+        createAccountVC.delegate = self;
+        
+        
+    }
+    
+    
+}
+
+
 - (IBAction)createAccountBarButtonItemPress:(id)sender {
     
     
@@ -45,7 +61,48 @@
 - (IBAction)loginActionButton:(id)sender {
     
     
-    [self performSegueWithIdentifier:@"toViewControllerSegue" sender:sender];
+   
+ 
+    NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:USER_NAME];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:USER_PASSWORD];
+    
+    if ([self.usernameTextfield.text isEqualToString:username] && [self.passwordTextfield.text isEqualToString:password]){
+        
+        [self performSegueWithIdentifier:@"toViewControllerSegue" sender:sender];
+    }
+    
+    else {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Username" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        
+        
+    }
+    
     
 }
+
+
+
+#pragma mark - create account controller delegage
+
+-(void)didCancel
+{
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+-(void)didCreateAccount
+{
+    
+     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    
+}
+
+
+
+
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CreateAccountViewController.h"
 
-@interface SignInViewController : UIViewController
+@interface SignInViewController : UIViewController <CreateAccountViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameTextfield;
 
